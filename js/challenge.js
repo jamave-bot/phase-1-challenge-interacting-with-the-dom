@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const pause = document.getElementById('pause');
     const heart = document.getElementById('heart');
     const likes = document.getElementsByClassName('likes')[0];
+    const comments = document.getElementById("comment-form")
 
     //Convert the string that was in that counter to a number type
     let number = parseInt(counter.innerHTML,10)
@@ -56,12 +57,29 @@ document.addEventListener("DOMContentLoaded", function(event) {
             counter.innerHTML = number
     },  1000);
 
-    //up to here
+    //adds a listener to heart/ adds an li of the number the heart was pressed on
     heart.addEventListener('click',()=>{
-        console.log(likes)
-        let likeCount = document.createAttribute('li');
+        let likeCount = document.createElement('li');
         likeCount.innerText = number;
         console.log(likeCount.innerText);
-        likes[0].appendChild(likeCount)
+        likes.appendChild(likeCount)
+    })
+    //maybe have another toggle here where it's outside the event listener
+    //and appends the 'x has been clicked y times' sentence
+    
+    
+    let ul = document.createElement('ul');
+    comments.appendChild(ul)
+
+    let ulNode = document.getElementsByTagName('ul')
+    comments.addEventListener('submit',(event)=>{
+        event.preventDefault();
+        addTask(event.target['comment-input'].value)
+
+        function addTask(task){
+          let pinnedText = document.createElement('li')
+          pinnedText.innerText = task
+          ulNode.appendChild(pinnedText)
+        }
     })
 });
